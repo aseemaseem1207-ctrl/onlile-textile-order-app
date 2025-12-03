@@ -28,7 +28,10 @@ body {
 }
 
 /* Typography */
-h1, h2, h3, .logo {
+h1,
+h2,
+h3,
+.logo {
     font-family: 'Playfair Display', serif;
 }
 
@@ -120,7 +123,9 @@ label {
     color: var(--text-light);
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #cbd5e1;
@@ -129,7 +134,9 @@ input, select, textarea {
     background: rgba(255, 255, 255, 0.8);
 }
 
-input:focus, select:focus, textarea:focus {
+input:focus,
+select:focus,
+textarea:focus {
     outline: 2px solid var(--primary);
     border-color: transparent;
 }
@@ -173,7 +180,8 @@ input:focus, select:focus, textarea:focus {
     position: relative;
 }
 
-.nav-links a:hover, .nav-links a.active {
+.nav-links a:hover,
+.nav-links a.active {
     color: var(--primary);
 }
 
@@ -188,7 +196,8 @@ input:focus, select:focus, textarea:focus {
     transition: 0.3s;
 }
 
-.nav-links a:hover::after, .nav-links a.active::after {
+.nav-links a:hover::after,
+.nav-links a.active::after {
     width: 100%;
 }
 
@@ -213,7 +222,7 @@ input:focus, select:focus, textarea:focus {
     padding: 80px 0;
     text-align: center;
     background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.1), transparent 40%),
-                radial-gradient(circle at bottom left, rgba(236, 72, 153, 0.1), transparent 40%);
+        radial-gradient(circle at bottom left, rgba(236, 72, 153, 0.1), transparent 40%);
 }
 
 .hero h1 {
@@ -221,6 +230,7 @@ input:focus, select:focus, textarea:focus {
     margin-bottom: 20px;
     background: linear-gradient(to right, var(--primary), var(--secondary));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -249,7 +259,8 @@ input:focus, select:focus, textarea:focus {
     transition: 0.3s;
 }
 
-.filters button.active, .filters button:hover {
+.filters button.active,
+.filters button:hover {
     background: var(--primary);
     color: white;
     border-color: var(--primary);
@@ -358,7 +369,8 @@ table {
     border-collapse: collapse;
 }
 
-th, td {
+th,
+td {
     padding: 15px 20px;
     text-align: left;
     border-bottom: 1px solid #e2e8f0;
@@ -528,30 +540,49 @@ td img {
 
 /* Animations */
 @keyframes slideUp {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 @keyframes slideLeft {
-    from { transform: translateX(100%); }
-    to { transform: translateX(0); }
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-    .nav-links, .nav-auth {
+
+    .nav-links,
+    .nav-auth {
         display: none;
     }
-    
+
     .mobile-toggle {
         display: block;
     }
-    
+
     .hero h1 {
         font-size: 2.5rem;
     }
