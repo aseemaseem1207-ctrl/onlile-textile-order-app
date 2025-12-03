@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxeThreads | Premium Online Textile Store</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo" onclick="app.navigate('home')">LuxeThreads<span class="dot">.</span></a>
+            <div class="nav-links">
+                <a href="#" onclick="app.navigate('home')" class="active">Home</a>
+                <a href="#" onclick="app.navigate('shop')">Shop</a>
+                <a href="#" onclick="app.toggleCart()">Cart <span id="cart-count" class="badge">0</span></a>
+            </div>
+            <div class="nav-auth">
+                <button id="admin-btn" class="btn-secondary" onclick="app.toggleAdminModal()">Admin Login</button>
+                <button id="logout-btn" class="btn-secondary hidden" onclick="app.logout()">Logout</button>
+            </div>
+            <div class="mobile-toggle" onclick="app.toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Views will be injected here by JS -->
+    </main>
+
+    <!-- Modals -->
+    
+    <!-- Admin Login Modal -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content glass-panel">
+            <span class="close-modal" onclick="app.toggleAdminModal()">&times;</span>
+            <h2>Admin Login</h2>
+            <form id="login-form" onsubmit="app.handleLogin(event)">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="username" placeholder="Enter username" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="btn-primary full-width">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Product Details Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content glass-panel large-modal" id="product-details-content">
+            <!-- Content injected by JS -->
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="modal right-modal">
+        <div class="modal-content glass-panel h-100">
+            <div class="modal-header">
+                <h2>Your Cart</h2>
+                <span class="close-modal" onclick="app.toggleCart()">&times;</span>
+            </div>
+            <div id="cart-items" class="cart-items-container">
+                <!-- Cart items injected here -->
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cart-total-amount">₹0</span>
+                </div>
+                <button class="btn-primary full-width" onclick="app.checkout()">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Product Modal (Admin Only) -->
+    <div id="edit-product-modal" class="modal">
+        <div class="modal-content glass-panel">
+            <span class="close-modal" onclick="app.closeEditModal()">&times;</span>
+            <h2 id="edit-modal-title">Add Product</h2>
+            <form id="product-form" onsubmit="app.saveProduct(event)">
+                <input type="hidden" id="prod-id">
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="prod-category" required>
+                        <!-- Options injected by JS -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="prod-name" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Price (INR)</label>
+                        <input type="number" id="prod-price" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Stock</label>
+                        <input type="number" id="prod-stock" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Color</label>
+                        <input type="text" id="prod-color">
+                    </div>
+                    <div class="form-group">
+                        <label>Size</label>
+                        <input type="text" id="prod-size">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Image URL</label>
+                    <input type="url" id="prod-image" placeholder="https://..." required>
+                    <small>For local testing use: assets/filename.png</small>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="prod-desc" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn-primary full-width">Save Product</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">Action Successful</div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <!-- App Logic -->
+    <script src="app.js"></script>
+</body>
+</html>
