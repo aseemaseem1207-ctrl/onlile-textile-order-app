@@ -94,9 +94,11 @@ const app = {
         if (state.isAdmin) {
             document.getElementById('admin-btn').classList.add('hidden');
             document.getElementById('logout-btn').classList.remove('hidden');
+            document.getElementById('dashboard-btn').classList.remove('hidden');
         } else {
             document.getElementById('admin-btn').classList.remove('hidden');
             document.getElementById('logout-btn').classList.add('hidden');
+            document.getElementById('dashboard-btn').classList.add('hidden');
         }
 
         // Cart Count
@@ -153,7 +155,10 @@ const app = {
             <section class="container admin-dashboard">
                 <div class="admin-header">
                     <h2>Admin Dashboard</h2>
-                    <button class="btn-primary" onclick="app.openAddProductModal()">+ Add New Product</button>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn-secondary" onclick="app.openCategoryModal()">Manage Categories</button>
+                        <button class="btn-primary" onclick="app.openAddProductModal()">+ Add New Product</button>
+                    </div>
                 </div>
                 <div class="table-container">
                     <table>
@@ -335,6 +340,56 @@ const app = {
         if (confirm('Are you sure you want to delete this product?')) {
             db.ref('products/' + id).remove()
                 .then(() => app.showToast('Product Deleted'))
+                .catch(err => alert('Error: ' + err.message));
+        }
+    },
+
+    // Category Logic
+    openCategoryModal: () => {
+        app.renderCategoryList();
+        document.getElementById('category-modal').classList.add('active');
+    },
+
+    closeCategoryModal: () => {
+        document.getElementById('category-modal').classList.remove('active');
+    },
+
+    renderCategoryList: () => {
+        const tbody = document.getElementById('category-list-body');
+        tbody.innerHTML = Object.values(state.categories).map(c => `
+            <tr>
+                <td>${c.name}</td>
+                <td>
+                    <button class="btn-danger" onclick="app.deleteCategory('${c.id}')"><i class="fas fa-trash"></i></button>
+                </td>
+            </tr>
+        `).join('');
+    },
+
+    addCategory: () => {
+        const name = document.getElementById('new-cat-name').value.trim();
+        if (!name) return alert('Please enter a category name');
+
+        const id = 'cat_' + Date.now();
+        db.ref('categories/' + id).set({
+            id: id,
+            name: name
+        })
+            .then(() => {
+                document.getElementById('new-cat-name').value = '';
+                app.showToast('Category Added');
+                app.renderCategoryList(); // Re-render list immediately
+            })
+            .catch(err => alert('Error: ' + err.message));
+    },
+
+    deleteCategory: (id) => {
+        if (confirm('Delete this category?')) {
+            db.ref('categories/' + id).remove()
+                .then(() => {
+                    app.showToast('Category Deleted');
+                    app.renderCategoryList();
+                })
                 .catch(err => alert('Error: ' + err.message));
         }
     },

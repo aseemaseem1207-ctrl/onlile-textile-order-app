@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,15 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
+        rel="stylesheet">
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar">
@@ -25,6 +29,8 @@
             </div>
             <div class="nav-auth">
                 <button id="admin-btn" class="btn-secondary" onclick="app.toggleAdminModal()">Admin Login</button>
+                <button id="dashboard-btn" class="btn-secondary hidden"
+                    onclick="app.navigate('admin')">Dashboard</button>
                 <button id="logout-btn" class="btn-secondary hidden" onclick="app.logout()">Logout</button>
             </div>
             <div class="mobile-toggle" onclick="app.toggleMobileMenu()">
@@ -39,7 +45,7 @@
     </main>
 
     <!-- Modals -->
-    
+
     <!-- Admin Login Modal -->
     <div id="admin-modal" class="modal">
         <div class="modal-content glass-panel">
@@ -136,6 +142,32 @@
             </form>
         </div>
     </div>
+    </div>
+
+    <!-- Category Manager Modal (Admin Only) -->
+    <div id="category-modal" class="modal">
+        <div class="modal-content glass-panel">
+            <span class="close-modal" onclick="app.closeCategoryModal()">&times;</span>
+            <h2>Manage Categories</h2>
+            <div class="form-row" style="margin-bottom: 20px;">
+                <input type="text" id="new-cat-name" placeholder="New Category Name" style="flex: 1;">
+                <button class="btn-primary" onclick="app.addCategory()">Add</button>
+            </div>
+            <div class="table-container">
+                <table class="full-width">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="category-list-body">
+                        <!-- Injected by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
     <!-- Toast Notification -->
     <div id="toast" class="toast hidden">Action Successful</div>
@@ -143,8 +175,9 @@
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-    
+
     <!-- App Logic -->
     <script src="app.js"></script>
 </body>
+
 </html>
